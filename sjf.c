@@ -8,6 +8,7 @@ void shortestRemainingTime (Process p[], int size) {
         p[a].remaining = p[a].burst;
     }
     sortProcessByJobTime(p, size);
+    printf("Execution Order:\n");
     while (p[0].remaining != 0) {
         ind = 0;
         if (time < p[ind].arrival) {
@@ -18,12 +19,13 @@ void shortestRemainingTime (Process p[], int size) {
         }
 
         if (lastPid != p[ind].pid) {
-            printf("processing: %d @ %d\n", p[ind].pid, time);
+            printf("Time %d: Process %d starts.\n", time, p[ind].pid);
         }
         lastPid = p[ind].pid;
         p[ind].remaining--;
         if (p[ind].remaining == 0) {
             p[ind].turnaround = p[ind].waiting + p[ind].burst;
+            printf("Time %d: Process %d finishes.\n", time+1, p[ind].pid);
         }
         for (int a = 0; a < size; a++) {
             if (a != ind && p[a].arrival <= time && p[a].remaining != 0) {

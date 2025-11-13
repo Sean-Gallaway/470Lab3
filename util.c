@@ -46,9 +46,12 @@ void sortProcessByID (Process p[], int size) {
 void printProcesses (Process p[], int size) {
     sortProcessByID(p, size);
     printf("PID\tArrival\tBurst\tWaiting\tTurnaround\n");
+    int aveWait = 0;
+    int aveTurnaround = 0;
     for (int a = 0; a < size; a++) {
-        printf("%d\t%d\t%d\t%d\t%d\n",
-            p[a].pid, p[a].arrival, p[a].burst,
-            p[a].waiting, p[a].turnaround);
+        printf("%d\t%d\t%d\t%d\t%d\n", p[a].pid, p[a].arrival, p[a].burst, p[a].waiting, p[a].turnaround);
+        aveWait += p[a].waiting;
+        aveTurnaround += p[a].turnaround;
     }
+    printf("Average Wait Time: %f\nAverage Turnaround: %f\n", ((float)aveWait)/size, ((float)aveTurnaround)/size);
 }
